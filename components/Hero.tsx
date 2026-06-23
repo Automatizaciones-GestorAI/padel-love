@@ -42,7 +42,6 @@ export function Hero() {
         '-=0.2'
       )
 
-      // Parallax
       gsap.to(imgRef.current, {
         y: '15%',
         ease: 'none',
@@ -66,11 +65,7 @@ export function Hero() {
       })
 
       gsap.to('.hero-scroll', {
-        y: 8,
-        duration: 1.2,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
+        y: 8, duration: 1.2, ease: 'sine.inOut', yoyo: true, repeat: -1,
       })
     }, sectionRef)
 
@@ -88,38 +83,36 @@ export function Hero() {
       id="hero"
       data-cursor="play"
     >
-      {/* BG Image — HD quality, full cover */}
+      {/* BG Image — 4K Unsplash */}
       <div ref={imgRef} className="absolute inset-0 w-full h-[115%] -top-[7%]">
         <Image
-          src="/images/pl4.jpg"
-          alt="Padel Love Indoor — pistas"
+          src="https://images.unsplash.com/photo-1646649853703-7645147474ba?fm=jpg&q=95&w=3840&auto=format&fit=crop"
+          alt="Pista de pádel indoor"
           fill
           className="object-cover object-center"
           priority
           quality={100}
           sizes="100vw"
+          unoptimized
         />
-        {/* Overlay más suave — deja respirar la foto */}
         <div className="absolute inset-0" style={{
-          background: 'linear-gradient(to top, rgba(8,8,8,0.98) 0%, rgba(8,8,8,0.65) 35%, rgba(8,8,8,0.2) 65%, rgba(8,8,8,0.4) 100%)'
+          background: 'linear-gradient(to top, rgba(8,8,8,0.98) 0%, rgba(8,8,8,0.7) 35%, rgba(8,8,8,0.25) 65%, rgba(8,8,8,0.45) 100%)'
         }} />
-        {/* Gradiente lateral izquierdo más suave */}
         <div className="absolute inset-0" style={{
-          background: 'linear-gradient(to right, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0.4) 40%, transparent 70%)'
+          background: 'linear-gradient(to right, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.35) 45%, transparent 70%)'
         }} />
-        {/* LED glow sutil */}
         <div className="absolute inset-0" style={{
-          background: 'radial-gradient(ellipse at 65% 35%, rgba(200,255,0,0.05) 0%, transparent 55%)'
+          background: 'radial-gradient(ellipse at 65% 35%, rgba(200,255,0,0.06) 0%, transparent 55%)'
         }} />
       </div>
 
-      {/* Grid sutil */}
+      {/* Grid */}
       <div className="absolute inset-0 pointer-events-none z-[1]" style={{
         backgroundImage: 'linear-gradient(rgba(200,255,0,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(200,255,0,0.018) 1px, transparent 1px)',
         backgroundSize: '60px 60px',
       }} />
 
-      {/* Línea izquierda */}
+      {/* Left accent line */}
       <div className="absolute left-0 top-0 bottom-0 w-[2px] z-[2]" style={{
         background: 'linear-gradient(to bottom, transparent 0%, #C8FF00 25%, #C8FF00 75%, transparent 100%)',
         opacity: 0.35,
@@ -128,7 +121,6 @@ export function Hero() {
       {/* CONTENT */}
       <div className="hero-content relative z-10 px-6 md:px-16 lg:px-24 pb-28 md:pb-36 pt-32 w-full">
 
-        {/* Eyebrow */}
         <div className="overflow-hidden mb-6 md:mb-8">
           <p className="hero-line text-neon text-xs tracking-[0.4em] uppercase block"
             style={{ fontFamily: 'var(--font-inter)' }}>
@@ -136,7 +128,6 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Title */}
         <div style={{ fontFamily: 'var(--font-bebas)', lineHeight: 0.85, letterSpacing: '0.01em' }}>
           <div className="overflow-hidden">
             <div className="hero-line" style={{ fontSize: 'clamp(5rem, 18vw, 17rem)', color: '#F0F0F0' }}>PADEL</div>
@@ -149,13 +140,11 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Subtitle */}
         <p className="hero-sub text-white/50 text-sm md:text-base leading-relaxed max-w-md mt-6 mb-10"
           style={{ fontFamily: 'var(--font-inter)' }}>
           Reserva pista, encuentra partido, compite en torneos y entrena en una comunidad pensada para todos los niveles.
         </p>
 
-        {/* CTAs */}
         <div className="hero-btns flex flex-wrap gap-3 md:gap-4">
           <MagneticButton data-cursor="book">
             <button
@@ -178,11 +167,9 @@ export function Hero() {
           </MagneticButton>
 
           <MagneticButton>
-            <a
-              href="#torneos"
+            <a href="#torneos"
               className="text-white/35 text-xs tracking-widest uppercase px-4 py-4 hover:text-white/60 transition-colors duration-300 flex items-center gap-2"
-              style={{ fontFamily: 'var(--font-inter)' }}
-            >
+              style={{ fontFamily: 'var(--font-inter)' }}>
               Ver torneos <span className="text-neon">→</span>
             </a>
           </MagneticButton>
