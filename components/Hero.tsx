@@ -12,29 +12,27 @@ gsap.registerPlugin(ScrollTrigger)
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const imgRef = useRef<HTMLDivElement>(null)
-  const overlayRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Master timeline
       const tl = gsap.timeline({ delay: 0.1 })
 
       tl.fromTo(imgRef.current,
-        { scale: 1.12, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 2, ease: 'power3.out' }
+        { scale: 1.08, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 2.2, ease: 'power3.out' }
       )
       .fromTo('.hero-line',
         { y: '110%', skewY: 3 },
         { y: '0%', skewY: 0, duration: 1, stagger: 0.1, ease: 'power4.out' },
-        '-=1.4'
+        '-=1.6'
       )
       .fromTo('.hero-sub',
-        { opacity: 0, y: 24 },
+        { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
         '-=0.5'
       )
       .fromTo('.hero-btns',
-        { opacity: 0, y: 20 },
+        { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
         '-=0.4'
       )
@@ -44,9 +42,9 @@ export function Hero() {
         '-=0.2'
       )
 
-      // Scroll parallax — image moves slower
+      // Parallax
       gsap.to(imgRef.current, {
-        y: '18%',
+        y: '15%',
         ease: 'none',
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -56,10 +54,8 @@ export function Hero() {
         },
       })
 
-      // Content moves up on scroll
       gsap.to('.hero-content', {
-        y: '-12%',
-        opacity: 0.3,
+        y: '-10%',
         ease: 'none',
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -69,7 +65,6 @@ export function Hero() {
         },
       })
 
-      // Scroll indicator bounce
       gsap.to('.hero-scroll', {
         y: 8,
         duration: 1.2,
@@ -87,9 +82,13 @@ export function Hero() {
   }
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-end overflow-hidden bg-dark" id="hero" data-cursor="play">
-
-      {/* BG Image with parallax */}
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex flex-col justify-end overflow-hidden bg-dark"
+      id="hero"
+      data-cursor="play"
+    >
+      {/* BG Image — HD quality, full cover */}
       <div ref={imgRef} className="absolute inset-0 w-full h-[115%] -top-[7%]">
         <Image
           src="/images/pl4.jpg"
@@ -97,47 +96,62 @@ export function Hero() {
           fill
           className="object-cover object-center"
           priority
-          quality={95}
+          quality={100}
+          sizes="100vw"
         />
-        {/* Cinematic overlays */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,0.75) 40%, rgba(8,8,8,0.3) 70%, rgba(8,8,8,0.5) 100%)' }} />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(8,8,8,0.6) 0%, transparent 60%)' }} />
-        {/* LED light effect */}
-        <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 70% 40%, rgba(200,255,0,0.04) 0%, transparent 60%)' }} />
+        {/* Overlay más suave — deja respirar la foto */}
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(to top, rgba(8,8,8,0.98) 0%, rgba(8,8,8,0.65) 35%, rgba(8,8,8,0.2) 65%, rgba(8,8,8,0.4) 100%)'
+        }} />
+        {/* Gradiente lateral izquierdo más suave */}
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(to right, rgba(8,8,8,0.85) 0%, rgba(8,8,8,0.4) 40%, transparent 70%)'
+        }} />
+        {/* LED glow sutil */}
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse at 65% 35%, rgba(200,255,0,0.05) 0%, transparent 55%)'
+        }} />
       </div>
 
-      {/* Grid overlay */}
+      {/* Grid sutil */}
       <div className="absolute inset-0 pointer-events-none z-[1]" style={{
-        backgroundImage: 'linear-gradient(rgba(200,255,0,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(200,255,0,0.02) 1px, transparent 1px)',
+        backgroundImage: 'linear-gradient(rgba(200,255,0,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(200,255,0,0.018) 1px, transparent 1px)',
         backgroundSize: '60px 60px',
       }} />
 
-      {/* Left accent */}
-      <div className="absolute left-0 top-0 bottom-0 w-[2px] z-[2]" style={{ background: 'linear-gradient(to bottom, transparent 0%, #C8FF00 30%, #C8FF00 70%, transparent 100%)', opacity: 0.4 }} />
+      {/* Línea izquierda */}
+      <div className="absolute left-0 top-0 bottom-0 w-[2px] z-[2]" style={{
+        background: 'linear-gradient(to bottom, transparent 0%, #C8FF00 25%, #C8FF00 75%, transparent 100%)',
+        opacity: 0.35,
+      }} />
 
-      {/* HERO CONTENT */}
+      {/* CONTENT */}
       <div className="hero-content relative z-10 px-6 md:px-16 lg:px-24 pb-28 md:pb-36 pt-32 w-full">
 
         {/* Eyebrow */}
-        <p className="hero-line text-neon text-xs tracking-[0.4em] uppercase mb-6 md:mb-8 block overflow-hidden" style={{ fontFamily: 'var(--font-inter)' }}>
-          <span className="block">Club de pádel indoor · Seseña Nuevo, Toledo</span>
-        </p>
+        <div className="overflow-hidden mb-6 md:mb-8">
+          <p className="hero-line text-neon text-xs tracking-[0.4em] uppercase block"
+            style={{ fontFamily: 'var(--font-inter)' }}>
+            Club de pádel indoor · Seseña Nuevo, Toledo
+          </p>
+        </div>
 
-        {/* Main title — HUGE */}
+        {/* Title */}
         <div style={{ fontFamily: 'var(--font-bebas)', lineHeight: 0.85, letterSpacing: '0.01em' }}>
           <div className="overflow-hidden">
-            <div className="hero-line" style={{ fontSize: 'clamp(5rem, 18vw, 18rem)', color: '#F0F0F0' }}>PADEL</div>
+            <div className="hero-line" style={{ fontSize: 'clamp(5rem, 18vw, 17rem)', color: '#F0F0F0' }}>PADEL</div>
           </div>
           <div className="overflow-hidden">
-            <div className="hero-line" style={{ fontSize: 'clamp(5rem, 18vw, 18rem)', color: '#C8FF00' }}>LOVE</div>
+            <div className="hero-line" style={{ fontSize: 'clamp(5rem, 18vw, 17rem)', color: '#C8FF00' }}>LOVE</div>
           </div>
           <div className="overflow-hidden">
-            <div className="hero-line" style={{ fontSize: 'clamp(5rem, 18vw, 18rem)', color: 'rgba(240,240,240,0.08)' }}>INDOOR</div>
+            <div className="hero-line" style={{ fontSize: 'clamp(5rem, 18vw, 17rem)', color: 'rgba(240,240,240,0.07)' }}>INDOOR</div>
           </div>
         </div>
 
         {/* Subtitle */}
-        <p className="hero-sub text-white/50 text-sm md:text-base leading-relaxed max-w-md mt-6 mb-10" style={{ fontFamily: 'var(--font-inter)' }}>
+        <p className="hero-sub text-white/50 text-sm md:text-base leading-relaxed max-w-md mt-6 mb-10"
+          style={{ fontFamily: 'var(--font-inter)' }}>
           Reserva pista, encuentra partido, compite en torneos y entrena en una comunidad pensada para todos los niveles.
         </p>
 
@@ -166,7 +180,7 @@ export function Hero() {
           <MagneticButton>
             <a
               href="#torneos"
-              className="text-white/40 text-xs tracking-widest uppercase px-4 py-4 hover:text-white/70 transition-colors duration-300 flex items-center gap-2"
+              className="text-white/35 text-xs tracking-widest uppercase px-4 py-4 hover:text-white/60 transition-colors duration-300 flex items-center gap-2"
               style={{ fontFamily: 'var(--font-inter)' }}
             >
               Ver torneos <span className="text-neon">→</span>
@@ -177,7 +191,7 @@ export function Hero() {
 
       {/* Stats bar */}
       <div className="absolute bottom-0 left-0 right-0 z-10 grid grid-cols-2 md:grid-cols-4 border-t border-white/5"
-        style={{ background: 'rgba(8,8,8,0.85)', backdropFilter: 'blur(16px)' }}>
+        style={{ background: 'rgba(8,8,8,0.88)', backdropFilter: 'blur(20px)' }}>
         {[
           { num: '6', label: 'Pistas indoor' },
           { num: '400+', label: 'Jugadores' },
@@ -193,7 +207,8 @@ export function Hero() {
 
       {/* Scroll indicator */}
       <div className="hero-scroll absolute bottom-24 right-6 md:right-12 flex flex-col items-center gap-2 z-10">
-        <span className="text-white/20 text-[9px] tracking-[0.25em] uppercase" style={{ writingMode: 'vertical-rl', fontFamily: 'var(--font-inter)' }}>Scroll</span>
+        <span className="text-white/20 text-[9px] tracking-[0.25em] uppercase"
+          style={{ writingMode: 'vertical-rl', fontFamily: 'var(--font-inter)' }}>Scroll</span>
         <div className="w-px h-10 bg-gradient-to-b from-neon/30 to-transparent" />
       </div>
     </section>
