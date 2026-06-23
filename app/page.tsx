@@ -1,27 +1,28 @@
-import { Header } from '@/components/Header'
-import { Hero } from '@/components/Hero'
-import { ImpactStats } from '@/components/ImpactStats'
-import { FindMatch } from '@/components/FindMatch'
-import { Tournaments } from '@/components/Tournaments'
-import { School } from '@/components/School'
-import { Ranking } from '@/components/Ranking'
-import { Facilities } from '@/components/Facilities'
-import { Contact } from '@/components/Contact'
-import { Footer } from '@/components/Footer'
+'use client'
+
+import dynamic from 'next/dynamic'
+import { WhatsAppFloat } from '@/components/WhatsAppFloat'
+
+const CourtWorld = dynamic(
+  () => import('@/components/court/CourtWorld').then(m => ({ default: m.CourtWorld })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-screen flex flex-col items-center justify-center bg-dark gap-4">
+        <div className="w-px h-16 bg-gradient-to-b from-transparent via-neon to-transparent animate-pulse" />
+        <p className="text-neon text-xs tracking-[0.4em] uppercase" style={{ fontFamily: 'var(--font-inter)' }}>
+          Cargando pista...
+        </p>
+      </div>
+    )
+  }
+)
 
 export default function Home() {
   return (
-    <main>
-      <Header />
-      <Hero />
-      <ImpactStats />
-      <FindMatch />
-      <Tournaments />
-      <School />
-      <Ranking />
-      <Facilities />
-      <Contact />
-      <Footer />
+    <main className="bg-dark">
+      <CourtWorld />
+      <WhatsAppFloat />
     </main>
   )
 }
